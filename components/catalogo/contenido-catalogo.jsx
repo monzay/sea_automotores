@@ -86,7 +86,7 @@ function ContenidoCatalogo() {
           eyebrow="Catalogo completo"
           title="Todos nuestros vehiculos"
           subtitle={subtitleMap[tipo]}
-          description="Encontra el vehiculo perfecto para vos. Todos estan verificados y con garantia."
+          description="Encontra el vehiculo perfecto para vos."
         />
 
         {/* ── Filtros ── */}
