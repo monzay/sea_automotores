@@ -73,7 +73,7 @@ function SeccionHeroe() {
 
             {/* Description */}
             <p  className={`text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 lg:mb-10 max-w-lg transition-all duration-700 delay-200 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              Autos y motos nuevos y usados. Financiamiento flexible, aceptamos tu vehículo y ofrecemos garantía.
+              Autos y motos nuevos y usados. Financiamiento flexible, aceptamos tu vehículo como parte de pago .
             </p>
 
             {/* CTAs */}

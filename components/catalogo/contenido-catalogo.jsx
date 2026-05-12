@@ -51,18 +51,40 @@ function PildoraCondicion({ value, label, activo, onClick, disabled }) {
   );
 }
 
+function PildoraMarca({ label, activo, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-flex items-center px-4 py-1.5 rounded-full text-xs font-medium border transition-all duration-300 cursor-pointer
+        ${activo
+          ? "bg-foreground border-foreground text-background"
+          : "bg-transparent border-foreground/20 text-muted-foreground hover:border-foreground/50 hover:text-foreground"
+        }`}
+    >
+      {label}
+    </button>
+  );
+}
+
 function ContenidoCatalogo() {
-  const [tipo, setTipo] = useState("todos");
+  const [tipo, setTipo]       = useState("todos");
   const [condicion, setCondicion] = useState("todos");
+  const [marca, setMarca]     = useState("todas");
 
   const handleTipo = (nuevoTipo) => {
     setTipo(nuevoTipo);
     setCondicion("todos");
+    setMarca("todas");
+  };
+
+  const handleCondicion = (nuevaCondicion) => {
+    setCondicion(nuevaCondicion);
+    setMarca("todas");
   };
 
   const vehiculosFiltrados = useMemo(
-    () => filtrarVehiculos({ tipo, condicion }),
-    [tipo, condicion]
+    () => filtrarVehiculos({ tipo, condicion, marca }),
+    [tipo, condicion, marca]
   );
 
   const condicionesDisponibles = useMemo(() => {
@@ -72,6 +94,11 @@ function ContenidoCatalogo() {
       "usado": conTodos.some((v) => v.condicion === "usado"),
     };
   }, [tipo]);
+
+  const marcasDisponibles = useMemo(
+    () => obtenerMarcasFiltradas({ tipo, condicion }),
+    [tipo, condicion]
+  );
 
   const subtitleMap = {
     todos: "disponibles.",
@@ -122,7 +149,31 @@ function ContenidoCatalogo() {
                     {...c}
                     activo={condicion === c.value}
                     disabled={c.value !== "todos" && !condicionesDisponibles[c.value]}
-                    onClick={() => setCondicion(c.value)}
+                    onClick={() => handleCondicion(c.value)}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Marca — solo se muestra si hay más de una marca disponible */}
+          {marcasDisponibles.length > 1 && (
+            <div className="flex flex-col gap-2">
+              <p className="text-xs text-muted-foreground tracking-wider uppercase">
+                Marca
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <PildoraMarca
+                  label="Todas"
+                  activo={marca === "todas"}
+                  onClick={() => setMarca("todas")}
+                />
+                {marcasDisponibles.map((m) => (
+                  <PildoraMarca
+                    key={m}
+                    label={m}
+                    activo={marca === m}
+                    onClick={() => setMarca(m)}
                   />
                 ))}
               </div>
@@ -155,7 +206,7 @@ function ContenidoCatalogo() {
             <Boton
               variant="outline"
               className="rounded-full text-sm"
-              onClick={() => { setTipo("todos"); setCondicion("todos"); }}
+              onClick={() => { setTipo("todos"); setCondicion("todos"); setMarca("todas"); }}
             >
               Ver todos los vehículos
             </Boton>
