@@ -22,7 +22,7 @@ function EncabezadoSeccion({
           {title}
           {subtitle && <>
               <br />
-              <span className="">{subtitle}</span>
+              <span className="text-brand">{subtitle}</span>
             </>}
         </h2>
         

@@ -2,8 +2,8 @@
 import { useEffect, useState } from "react";
 import { Boton } from "@/components/interfaz/boton";
 import { ArrowRight, Car } from "lucide-react";
-import { INFO_NEGOCIO } from "@/lib/constantes";
 const words = ["soñaste", "buscabas", "merecés", "esperabas"];
+
 function SeccionHeroe() {
   const [estaVisible, setIsVisible] = useState(false);
   const [wordIndex, setWordIndex] = useState(0);
@@ -17,29 +17,18 @@ function SeccionHeroe() {
     return () => clearInterval(interval);
   }, []);
   return <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      {/* Background image with responsive sizing and overlay */}
       <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: 'url(/images/hero-bg-truck.jpg)',
-          backgroundSize: 'cover',
-          backgroundPosition: 'center'
-        }}
-      />
-      
-      {/* Subtle left overlay for text readability */}
-      <div className="absolute inset-0 bg-gradient-to-r from-background/40 via-transparent to-transparent" />
-      
-      {/* Bottom gradient: transitions image to white background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-white/80" />
+  className="absolute inset-0 bg-cover bg-no-repeat bg-[75%_center] lg:bg-center"
+  style={{
+    backgroundImage: 'url(/images/hero.png)',
+    backgroundSize: 'cover',
+  }}
+/>
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 py-28 lg:py-0 lg:min-h-screen flex items-center">
-        {/* Two-column layout: content left, car right */}
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center">
 
-          {/* LEFT — text content */}
           <div className="flex flex-col justify-center lg:pr-12">
-            {/* Eyebrow */}
             <div className={`mb-6 lg:mb-8 transition-all duration-700 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
               <span className="inline-flex items-center gap-3 text-sm lg:text-base font-mono text-muted-foreground">
                 <span className="w-6 h-px bg-brand" />
@@ -48,7 +37,6 @@ function SeccionHeroe() {
               </span>
             </div>
 
-            {/* Main headline */}
             <div className="mb-8 lg:mb-10">
               <h1 className={`text-[clamp(3rem,8vw,7rem)] font-display font-black leading-[0.85] tracking-tighter transition-all duration-1000 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
                 <span className="block text-foreground">El auto que</span>
@@ -71,12 +59,10 @@ function SeccionHeroe() {
               </h1>
             </div>
 
-            {/* Description */}
-            <p  className={`text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 lg:mb-10 max-w-lg transition-all duration-700 delay-200 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              Autos y motos nuevos y usados. Financiamiento flexible, aceptamos tu vehículo como parte de pago .
+            <p className={`text-base lg:text-lg text-muted-foreground leading-relaxed mb-8 lg:mb-10 max-w-lg transition-all duration-700 delay-200 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
+              Autos y motos nuevos y usados. Financiamiento flexible, aceptamos tu vehículo como parte de pago.
             </p>
 
-            {/* CTAs */}
             <div className={`flex flex-col sm:flex-row items-start gap-4 transition-all duration-700 delay-300 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
               <Boton
                 size="lg"
@@ -102,7 +88,6 @@ function SeccionHeroe() {
             </div>
           </div>
 
-          {/* RIGHT — empty on mobile, car shows through background on desktop */}
           <div className="hidden lg:block" aria-hidden="true" />
         </div>
       </div>
