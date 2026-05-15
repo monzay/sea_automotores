@@ -44,9 +44,7 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
           </div>
         </div>
 
-        {
-    /* Content */
-  }
+        {/* Content */}
         <div className="p-4 sm:p-5 lg:p-6">
           <div className="mb-3 sm:mb-4">
             <h3 className="text-base sm:text-lg lg:text-xl font-display group-hover:translate-x-1 transition-transform duration-300">
@@ -54,14 +52,14 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
             </h3>
           </div>
 
-          {
-    /* Specs */
-  }
+          {/* Specs */}
           <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-muted-foreground mb-4 sm:mb-6">
-            <span className="flex items-center gap-1 sm:gap-1.5">
-              <Gauge className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-              {vehicle.kms.toLocaleString()} km
-            </span>
+            {vehicle.condicion === "usado" && vehicle.kms === 0 ? null : (
+              <span className="flex items-center gap-1 sm:gap-1.5">
+                <Gauge className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                {vehicle.kms.toLocaleString()} km
+              </span>
+            )}
             <span className="flex items-center gap-1 sm:gap-1.5">
               <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               {vehicle.year}
@@ -77,13 +75,11 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
             )}
           </div>
 
-          {
-    /* CTA */
-  }
+          {/* CTA */}
           <Boton
-    className="w-full rounded-full text-xs sm:text-sm h-9 sm:h-10 bg-brand text-white hover:bg-white hover:text-brand transition-all duration-300 group/btn border-0 hover:border hover:border-brand"
-    onClick={handleConsultar}
-  >
+            className="w-full rounded-full text-xs sm:text-sm h-9 sm:h-10 bg-brand text-white hover:bg-white hover:text-brand transition-all duration-300 group/btn border-0 hover:border hover:border-brand"
+            onClick={handleConsultar}
+          >
             Consultar
             <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 transition-transform group-hover/btn:translate-x-1" />
           </Boton>
