@@ -30,9 +30,9 @@ function SeccionHeroe() {
 
           <div className="flex flex-col justify-center lg:pr-12">
             <div className={`mb-6 lg:mb-8 transition-all duration-700 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"}`}>
-              <span className="inline-flex items-center gap-3 text-sm lg:text-base font-mono text-muted-foreground">
+              <span className="inline-flex items-center gap-3 text-sm lg:text-base font-mono ">
                 <span className="w-6 h-px bg-brand" />
-                <span className="w-2 h-2 rounded-full bg-brand" />
+                <span className="w-2 h-2 rounded-full bg-brand  " />
                 Encuentra tu vehículo perfecto
               </span>
             </div>
