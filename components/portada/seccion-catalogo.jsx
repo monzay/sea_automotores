@@ -14,7 +14,6 @@ function SeccionCatalogo() {
     subtitle="para vos."
     description="Explorá nuestra selección de vehículos nuevos y usados. Todos verificados y con garantía."
   />
-
         {
     /* Vehicle Grid */
   }
