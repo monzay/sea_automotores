@@ -6,28 +6,28 @@ const testimonials = [
     quote: "Excelente atención desde el primer momento. Me ayudaron a encontrar el auto perfecto para mi familia.",
     author: "María García",
     role: "Compradora",
-    company: "Toyota Corolla 2023",
-    metric: "Entrega en 48hs"
+    company: "Toyota Corolla 2026",
+    metric: "Entrega en inmediata"
   },
   {
     quote: "El proceso de financiación fue súper simple. Las cuotas se ajustaron perfectamente a mi presupuesto.",
     author: "Carlos Rodríguez",
     role: "Comprador",
-    company: "Volkswagen Amarok 2024",
-    metric: "Financiación en 24hs"
+    company: "Volkswagen Amarok 2026",
+    metric: "Financiación al instante  "
   },
   {
     quote: "Vendí mi auto usado y compré uno nuevo en el mismo día. Servicio impecable y precio justo.",
     author: "Laura Martínez",
     role: "Compradora",
-    company: "Honda HR-V 2024",
+    company: "Honda HR-V 2026",
     metric: "Tasación al instante"
   },
   {
     quote: "Ya es el tercer auto que compro acá. La confianza y transparencia son lo que más valoro.",
     author: "Roberto Fernández",
     role: "Cliente frecuente",
-    company: "Ford Ranger 2024",
+    company: "Ford Ranger 2026",
     metric: "3 compras realizadas"
   }
 ];
