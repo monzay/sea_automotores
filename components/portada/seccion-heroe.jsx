@@ -18,10 +18,11 @@ function SeccionHeroe() {
   }, []);
   return <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       <div 
-  className="absolute inset-0 bg-cover bg-no-repeat bg-[75%_center] lg:bg-center"
+  className="absolute inset-0 bg-cover bg-no-repeat"
   style={{
     backgroundImage: 'url(/images/hero.png)',
     backgroundSize: 'cover',
+    backgroundPosition: '75% 30%',
   }}
 />
 
