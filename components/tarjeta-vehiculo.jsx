@@ -1,18 +1,28 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Boton } from "@/components/interfaz/boton";
-import { Calendar, Gauge, ArrowRight, Car, Bike, Flame, Zap } from "lucide-react";
+import { Calendar, Gauge, ArrowRight, Car, Bike, Flame, Zap, X } from "lucide-react";
 import { obtenerNombreCompletoVehiculo } from "@/lib/vehiculos";
 import { obtenerUrlWhatsAppVehiculo } from "@/lib/constantes";
 import { usarEnVista } from "@/hooks/usar-en-vista";
 function TarjetaVehiculo({ vehicle, index = 0 }) {
   const { ref, estaVisible } = usarEnVista();
   const [isHovered, setIsHovered] = useState(false);
+  const [modalOpen, setModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (!modalOpen) return;
+    const onKey = (e) => { if (e.key === "Escape") setModalOpen(false); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [modalOpen]);
+
   const handleConsultar = () => {
     const url = obtenerUrlWhatsAppVehiculo(vehicle.brand, vehicle.model, vehicle.year);
     window.open(url, "_blank", "noopener,noreferrer");
   };
-  return <div
+  return <>
+    <div
     ref={ref}
     className={`group relative transition-all duration-700 ${estaVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
     style={{ transitionDelay: `${index * 100}ms` }}
@@ -21,7 +31,10 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
   >
       <div className="relative border border-foreground/10 bg-card overflow-hidden hover:border-foreground/30 transition-all duration-500">
         {/* Image */}
-        <div className="relative aspect-[4/3] overflow-hidden">
+        <div
+          className="relative aspect-4/3 overflow-hidden cursor-pointer"
+          onClick={() => setModalOpen(true)}
+        >
           <img
             src={vehicle.image}
             alt={obtenerNombreCompletoVehiculo(vehicle)}
@@ -85,7 +98,37 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
           </Boton>
         </div>
       </div>
-    </div>;
+    </div>
+
+    {/* Modal */}
+    {modalOpen && (
+      <div
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-lg"
+        onClick={() => setModalOpen(false)}
+      >
+        <div
+          className="relative max-w-4xl w-full mx-4 sm:mx-8"
+          onClick={(e) => e.stopPropagation()}
+        >
+          <img
+            src={vehicle.image}
+            alt={obtenerNombreCompletoVehiculo(vehicle)}
+            className="w-full h-auto max-h-[85vh] object-contain rounded-xl"
+          />
+          <button
+            onClick={() => setModalOpen(false)}
+            className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 transition-colors duration-200 rounded-full"
+            aria-label="Cerrar"
+          >
+            <X className="w-4 h-4 text-white" />
+          </button>
+          <p className="mt-3 font-mono text-[9px] tracking-[0.3em] text-white/30 uppercase text-right">
+            {obtenerNombreCompletoVehiculo(vehicle)} · {vehicle.year}
+          </p>
+        </div>
+      </div>
+    )}
+  </>;
 }
 export {
   TarjetaVehiculo

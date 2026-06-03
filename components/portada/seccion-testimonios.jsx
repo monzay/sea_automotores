@@ -1,5 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
+import { X } from "lucide-react";
+import { LISTA_ENTREGAS } from "@/lib/entregas";
 
 const testimonials = [
   {
@@ -32,232 +34,109 @@ const testimonials = [
   }
 ];
 
-// ── Reemplazá con las rutas reales de tus fotos ──────────────────────────────
-const clientDeliveries = [
-  {
-    src: "/images/cliente1.jpeg",
-    name: "Sebastián M.",
-    vehicle: "",
-    trim: "",
-    year: "2026",
-    date: "20 Abril 2026",
-    location: "Jujuy, ARG",
-    id: "ENT-001"
-  },
-  {
-    src: "/images/cliente2.jpeg",
-    name: "Yonatan Rivera",
-    vehicle: "",
-    trim: "",
-    year: "2026",
-    date: "28 ABR 2026",
-    location: "Jujuy, ARG",
-    id: "ENT-002"
-  }
+
+// mobile: 1 col apilado — sm: bento 2 cols — lg: bento 4 cols
+// fila 1: [2] [1] [1]  — fila 2: [1] [2] [1]
+const bentoCols = [
+  "sm:col-span-2 lg:col-span-2",
+  "sm:col-span-1 lg:col-span-1",
+  "sm:col-span-1 lg:col-span-1",
+  "sm:col-span-1 lg:col-span-1",
+  "sm:col-span-2 lg:col-span-2",
+  "sm:col-span-1 lg:col-span-1",
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
+function SeccionEntregas() {
+  const [selected, setSelected] = useState(null);
 
-function DeliverySection() {
-  const [hovered, setHovered] = useState(null);
-  const left  = clientDeliveries[0];
-  const right = clientDeliveries[1];
+  useEffect(() => {
+    if (selected === null) return;
+    const onKey = (e) => { if (e.key === "Escape") setSelected(null); };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selected]);
 
   return (
-    <div className="mt-32 pt-16 border-t border-foreground/10">
+    <section id="entregas" className="relative py-14 sm:py-20 lg:py-24">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
 
-      {/* ── Encabezado ─────────────────────────────────────────────────── */}
-      <div className="flex items-end justify-between mb-20">
-        <div>
-          <p className="font-mono text-[9px] tracking-[0.35em] text-foreground/30 uppercase mb-3">
-            Momento de entrega
-          </p>
-          <h2 className="font-display text-3xl md:text-4xl text-foreground leading-[1.1]">
-            Cada llave,<br />
-            <span className="text-foreground/35">una historia.</span>
-          </h2>
-        </div>
-        <span className="font-mono text-[9px] tracking-[0.3em] text-foreground/20 uppercase self-start mt-1">
-          {new Date().getFullYear()}
-        </span>
-      </div>
-
-      {/* ── Layout 2 columnas con espina central ───────────────────────── */}
-      <div className="relative grid grid-cols-1 sm:grid-cols-2 gap-y-12 sm:gap-y-0 gap-x-4 sm:gap-x-8 md:gap-x-14">
-
-        {/* Espina central: línea + badge */}
-        <div className="hidden sm:flex absolute inset-y-0 left-1/2 -translate-x-1/2 flex-col items-center pointer-events-none z-10">
-          <div className="flex-1 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
-          <div className="shrink-0 my-4 border border-foreground/15 px-3 py-2 bg-background">
-            <p className="font-mono text-[8px] tracking-[0.25em] text-foreground/30 uppercase leading-none">
-              ENT
+        <div className="flex items-end justify-between mb-8 sm:mb-12 lg:mb-14">
+          <div>
+            <p className="font-mono text-[9px] tracking-[0.35em] text-foreground/30 uppercase mb-2 sm:mb-3">
+              Momento de entrega
             </p>
+            <h2 className="font-display text-2xl sm:text-3xl md:text-4xl text-foreground leading-[1.1]">
+              Cada llave,<br />
+              <span className="text-foreground/35">una historia.</span>
+            </h2>
           </div>
-          <div className="flex-1 w-px bg-gradient-to-b from-transparent via-foreground/15 to-transparent" />
-        </div>
-
-        {/* ─── COLUMNA IZQUIERDA (arriba) ──────────────────────────────── */}
-        <figure
-          className="m-0 flex flex-col w-full max-w-[320px] mx-auto sm:mx-0 sm:max-w-[280px] md:max-w-[320px]"
-          onMouseEnter={() => setHovered(0)}
-          onMouseLeave={() => setHovered(null)}
-        >
-          <p className="font-mono text-[8px] tracking-[0.3em] text-foreground/20 uppercase mb-4">
-            {left.id}
-          </p>
-
-          <div className="relative overflow-hidden aspect-[3/4] group cursor-pointer">
-            <img
-              src={left.src}
-              alt={`Entrega ${left.vehicle} a ${left.name}`}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent pointer-events-none" />
-
-            {/* Sello giratorio — esquina superior derecha */}
-            <div className="absolute top-3 right-3 w-14 h-14">
-              <svg viewBox="0 0 56 56" className="absolute inset-0 w-full h-full animate-spin-slow">
-                <path id="c0" d="M28,28 m-19,0 a19,19 0 1,1 38,0 a19,19 0 1,1 -38,0" fill="none"/>
-                <text fontSize="5.2" fill="rgba(255,255,255,0.6)" letterSpacing="2.6">
-                  <textPath href="#c0">ENTREGADO · {left.date} · </textPath>
-                </text>
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
-                </svg>
-              </div>
-            </div>
-
-            {/* Info base */}
-            <div className="absolute inset-x-0 bottom-0 p-4">
-              <p className="font-mono text-[9px] tracking-[0.2em] text-white/45 uppercase mb-0.5">{left.trim}</p>
-              <p className="font-display text-lg text-white leading-tight">
-                {left.vehicle} <span className="text-white/50">{left.year}</span>
-              </p>
-            </div>
-
-            {/* Hover overlay */}
-            <div className={`absolute inset-0 bg-black/80 backdrop-blur-[2px] flex flex-col justify-end p-5 transition-opacity duration-300 ${hovered === 0 ? "opacity-100" : "opacity-0"}`}>
-              <div className="space-y-3">
-                <div>
-                  <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Cliente</p>
-                  <p className="text-base font-medium text-white mt-0.5">{left.name}</p>
-                </div>
-                <div className="h-px bg-white/10" />
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Fecha</p>
-                    <p className="font-mono text-[10px] text-white/60 mt-0.5">{left.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Lugar</p>
-                    <p className="font-mono text-[10px] text-white/60 mt-0.5">{left.location}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <figcaption className="mt-4">
-            <div className="flex items-center gap-2">
-              <span className="w-1 h-1 rounded-full bg-foreground/25 shrink-0" />
-              <p className="text-sm font-medium text-foreground">{left.name}</p>
-            </div>
-            <p className="font-mono text-[9px] tracking-[0.15em] text-foreground/30 mt-1 ml-3 uppercase">
-              {left.vehicle} · {left.year}
-            </p>
-          </figcaption>
-        </figure>
-
-        {/* ─── COLUMNA DERECHA (desplazada abajo) ─────────────────────── */}
-        <figure
-          className="m-0 flex flex-col w-full max-w-[320px] mx-auto sm:mx-0 sm:pt-20 md:pt-32 sm:max-w-[280px] md:max-w-[320px] sm:ml-auto"
-          onMouseEnter={() => setHovered(1)}
-          onMouseLeave={() => setHovered(null)}
-        >
-          <p className="font-mono text-[8px] tracking-[0.3em] text-foreground/20 uppercase mb-4 text-right">
-            {right.id}
-          </p>
-
-          <div className="relative overflow-hidden aspect-[3/4] group cursor-pointer">
-            <img
-              src={right.src}
-              alt={`Entrega ${right.vehicle} a ${right.name}`}
-              className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/10 to-transparent pointer-events-none" />
-
-            {/* Sello giratorio — esquina superior izquierda, gira al revés */}
-            <div className="absolute top-3 left-3 w-14 h-14">
-              <svg viewBox="0 0 56 56" className="absolute inset-0 w-full h-full animate-spin-slow-reverse">
-                <path id="c1" d="M28,28 m-19,0 a19,19 0 1,1 38,0 a19,19 0 1,1 -38,0" fill="none"/>
-                <text fontSize="5.2" fill="rgba(255,255,255,0.6)" letterSpacing="2.6">
-                  <textPath href="#c1">ENTREGADO · {right.date} · </textPath>
-                </text>
-              </svg>
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-white/80" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5"/>
-                </svg>
-              </div>
-            </div>
-
-            {/* Info base (alineada a la derecha) */}
-            <div className="absolute inset-x-0 bottom-0 p-4 text-right">
-              <p className="font-mono text-[9px] tracking-[0.2em] text-white/45 uppercase mb-0.5">{right.trim}</p>
-              <p className="font-display text-lg text-white leading-tight">
-                {right.vehicle} <span className="text-white/50">{right.year}</span>
-              </p>
-            </div>
-
-            {/* Hover overlay */}
-            <div className={`absolute inset-0 bg-black/80 backdrop-blur-[2px] flex flex-col justify-end p-5 transition-opacity duration-300 ${hovered === 1 ? "opacity-100" : "opacity-0"}`}>
-              <div className="space-y-3">
-                <div>
-                  <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Cliente</p>
-                  <p className="text-base font-medium text-white mt-0.5">{right.name}</p>
-                </div>
-                <div className="h-px bg-white/10" />
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Fecha</p>
-                    <p className="font-mono text-[10px] text-white/60 mt-0.5">{right.date}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-[8px] tracking-[0.3em] text-white/35 uppercase">Lugar</p>
-                    <p className="font-mono text-[10px] text-white/60 mt-0.5">{right.location}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <figcaption className="mt-4 text-right">
-            <div className="flex items-center gap-2 justify-end">
-              <p className="text-sm font-medium text-foreground">{right.name}</p>
-              <span className="w-1 h-1 rounded-full bg-foreground/25 shrink-0" />
-            </div>
-            <p className="font-mono text-[9px] tracking-[0.15em] text-foreground/30 mt-1 mr-3 uppercase">
-              {right.vehicle} · {right.year}
-            </p>
-          </figcaption>
-        </figure>
-      </div>
-
-      {/* ── Pie de sección ──────────────────────────────────────────────── */}
-      <div className="mt-16 flex items-center justify-between">
-        <p className="font-mono text-[8px] tracking-[0.3em] text-foreground/20 uppercase">
-          Fotos reales de clientes
-        </p>
-        <div className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 animate-pulse" />
-          <span className="font-mono text-[8px] tracking-[0.2em] text-foreground/20 uppercase">
-            Entregas activas
+          <span className="font-mono text-[9px] tracking-[0.3em] text-foreground/20 uppercase self-start mt-1">
+            {new Date().getFullYear()}
           </span>
         </div>
+
+        {/* mobile: 1 col apilado · sm: bento 2 cols · lg: bento 4 cols con alturas fijas */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 lg:gap-3 lg:auto-rows-[240px]">
+          {LISTA_ENTREGAS.map((delivery, idx) => (
+            <figure
+              key={idx}
+              className={`m-0 group overflow-hidden cursor-pointer rounded-xl ${bentoCols[idx]}`}
+              onClick={() => setSelected(delivery)}
+            >
+              <div className="relative w-full aspect-video sm:aspect-video lg:aspect-auto lg:h-full overflow-hidden rounded-xl">
+                <img
+                  src={delivery.src}
+                  alt={`Entrega ${delivery.id}`}
+                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+                />
+              </div>
+            </figure>
+          ))}
+        </div>
+
+        <div className="mt-6 sm:mt-10 flex items-center justify-between">
+          <p className="font-mono text-[8px] tracking-[0.3em] text-foreground/20 uppercase">
+            Fotos reales de clientes
+          </p>
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500/60 animate-pulse" />
+            <span className="font-mono text-[8px] tracking-[0.2em] text-foreground/20 uppercase">
+              Entregas activas
+            </span>
+          </div>
+        </div>
+
       </div>
-    </div>
+
+      {/* Modal */}
+      {selected !== null && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-lg"
+          onClick={() => setSelected(null)}
+        >
+          <div
+            className="relative max-w-4xl w-full mx-4 sm:mx-8"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={selected.src}
+              alt={`Entrega ${selected.id}`}
+              className="w-full h-auto max-h-[85vh] object-contain rounded-xl"
+            />
+            <button
+              onClick={() => setSelected(null)}
+              className="absolute top-3 right-3 w-8 h-8 flex items-center justify-center bg-black/50 hover:bg-black/80 transition-colors duration-200 rounded-full"
+              aria-label="Cerrar"
+            >
+              <X className="w-4 h-4 text-white" />
+            </button>
+            <p className="mt-3 font-mono text-[9px] tracking-[0.3em] text-white/30 uppercase text-right">
+              {selected.id}
+            </p>
+          </div>
+        </div>
+      )}
+    </section>
   );
 }
 
@@ -338,9 +217,6 @@ function SeccionTestimonios() {
           </div>
         </div>
 
-        {/* Sección Entregas */}
-        <DeliverySection />
-
         {/* Brands Marquee Label */}
         <div className="mt-24 pt-12 border-t border-foreground/10">
           <p className="font-mono text-xs tracking-widest text-muted-foreground uppercase mb-8 text-center">
@@ -367,4 +243,4 @@ function SeccionTestimonios() {
   );
 }
 
-export { SeccionTestimonios };
+export { SeccionTestimonios, SeccionEntregas };
