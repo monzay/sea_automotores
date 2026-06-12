@@ -1,9 +1,10 @@
 "use client";
 import { useState } from "react";
 import { Boton } from "@/components/interfaz/boton";
-import { ArrowRight, Phone, MapPin, Clock } from "lucide-react";
-import { INFO_NEGOCIO, obtenerUrlWhatsAppPredeterminada } from "@/lib/constantes";
+import { ArrowRight, MapPin, Clock } from "lucide-react";
+import { INFO_NEGOCIO } from "@/lib/constantes";
 import { usarEnVista } from "@/hooks/usar-en-vista";
+import { SelectorAsesor } from "@/components/portada/selector-asesor";
 function SeccionLlamadaAccion() {
   const { ref, estaVisible } = usarEnVista();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -13,9 +14,6 @@ function SeccionLlamadaAccion() {
       x: (e.clientX - rect.left) / rect.width * 100,
       y: (e.clientY - rect.top) / rect.height * 100
     });
-  };
-  const handleWhatsAppClick = () => {
-    window.open(obtenerUrlWhatsAppPredeterminada(), "_blank", "noopener,noreferrer");
   };
   return <section id="contacto" ref={ref} className="relative py-12 sm:py-16 md:py-24 lg:py-32 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-12">
@@ -50,15 +48,15 @@ function SeccionLlamadaAccion() {
                 </p>
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-3 sm:gap-4 mb-8 sm:mb-12">
-                  <Boton
-    size="lg"
-    className="bg-brand hover:bg-brand-light text-white px-4 sm:px-6 lg:px-8 h-11 sm:h-12 lg:h-14 text-xs sm:text-sm lg:text-base rounded-full group w-full sm:w-auto"
-    onClick={handleWhatsAppClick}
-  >
-                    Escribinos por WhatsApp
-                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2 transition-transform group-hover:translate-x-1" />
-                  </Boton>
-      
+                  <SelectorAsesor>
+                    <Boton
+                      size="lg"
+                      className="bg-brand hover:bg-brand-light text-white px-4 sm:px-6 lg:px-8 h-11 sm:h-12 lg:h-14 text-xs sm:text-sm lg:text-base rounded-full group w-full sm:w-auto"
+                    >
+                      Escribinos por WhatsApp
+                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2 transition-transform group-hover:translate-x-1" />
+                    </Boton>
+                  </SelectorAsesor>
                 </div>
 
                 {

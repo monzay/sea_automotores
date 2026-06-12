@@ -3,8 +3,8 @@ import { useState, useEffect } from "react";
 import { Boton } from "@/components/interfaz/boton";
 import { Calendar, Gauge, ArrowRight, Car, Bike, Flame, Zap, X } from "lucide-react";
 import { obtenerNombreCompletoVehiculo } from "@/lib/vehiculos";
-import { obtenerUrlWhatsAppVehiculo } from "@/lib/constantes";
 import { usarEnVista } from "@/hooks/usar-en-vista";
+import { SelectorAsesor } from "@/components/portada/selector-asesor";
 function TarjetaVehiculo({ vehicle, index = 0 }) {
   const { ref, estaVisible } = usarEnVista();
   const [isHovered, setIsHovered] = useState(false);
@@ -17,10 +17,7 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
     return () => document.removeEventListener("keydown", onKey);
   }, [modalOpen]);
 
-  const handleConsultar = () => {
-    const url = obtenerUrlWhatsAppVehiculo(vehicle.brand, vehicle.model, vehicle.year);
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
+  const mensajeVehiculo = `Estoy interesado en el ${vehicle.brand} ${vehicle.model} ${vehicle.year}. \xBFPodr\xEDan darme m\xE1s informaci\xF3n?`;
   return <>
     <div
     ref={ref}
@@ -89,13 +86,14 @@ function TarjetaVehiculo({ vehicle, index = 0 }) {
           </div>
 
           {/* CTA */}
-          <Boton
-            className="w-full rounded-full text-xs sm:text-sm h-9 sm:h-10 bg-brand text-white hover:bg-white hover:text-brand transition-all duration-300 group/btn border-0 hover:border hover:border-brand"
-            onClick={handleConsultar}
-          >
-            Consultar
-            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 transition-transform group-hover/btn:translate-x-1" />
-          </Boton>
+          <SelectorAsesor cuerpo={mensajeVehiculo}>
+            <Boton
+              className="w-full rounded-full text-xs sm:text-sm h-9 sm:h-10 bg-brand text-white hover:bg-white hover:text-brand transition-all duration-300 group/btn border-0 hover:border hover:border-brand"
+            >
+              Consultar
+              <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 ml-1.5 sm:ml-2 transition-transform group-hover/btn:translate-x-1" />
+            </Boton>
+          </SelectorAsesor>
         </div>
       </div>
     </div>
