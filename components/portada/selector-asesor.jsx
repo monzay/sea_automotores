@@ -5,7 +5,6 @@ import {
   DialogContent,
   DialogHeader,
   DialogTitle,
-  DialogDescription,
   DialogTrigger,
 } from "@/components/interfaz/dialogo";
 import { ASESORES, obtenerUrlWhatsAppAsesor } from "@/lib/constantes";
@@ -25,10 +24,7 @@ function SelectorAsesor({ cuerpo, children }) {
       <DialogTrigger asChild>{children}</DialogTrigger>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-xl">Eleg\xED tu asesor</DialogTitle>
-          <DialogDescription>
-            Seleccion\xE1 con qui\xE9n quer\xE9s comunicarte por WhatsApp
-          </DialogDescription>
+          <DialogTitle className="text-xl">¿Con quién le gustaría comunicarse?</DialogTitle>
         </DialogHeader>
         <div className="grid grid-cols-2 gap-3 pt-2">
           {ASESORES.map((asesor) => (
