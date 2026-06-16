@@ -5,10 +5,12 @@ import { SeccionCaracteristicas } from "@/components/portada/seccion-caracterist
 import { SeccionTestimonios, SeccionEntregas } from "@/components/portada/seccion-testimonios";
 import { SeccionLlamadaAccion } from "@/components/portada/seccion-llamada-accion";
 import { SeccionPie } from "@/components/portada/seccion-pie";
+import { ComponentePapelitos } from "@/components/portada/papelitos-mundial";
 
 function Inicio() {
   return (
     <main className="relative min-h-screen overflow-x-hidden noise-overlay">
+      <ComponentePapelitos />
       <Navegacion />
       <SeccionHeroe />
       <SeccionCatalogo />

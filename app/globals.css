@@ -186,6 +186,19 @@
     }
   }
 
+  @keyframes sway-pennant {
+    0%, 100% { transform: rotate(-5deg); }
+    50%      { transform: rotate(5deg);  }
+  }
+
+  @keyframes entrada-banderin {
+    0%   { transform: translateY(-90px) rotate(0deg); opacity: 0; }
+    55%  { transform: translateY(10px) rotate(5deg);  opacity: 1; }
+    72%  { transform: translateY(-6px) rotate(-3deg); opacity: 1; }
+    88%  { transform: translateY(3px)  rotate(1deg);  opacity: 1; }
+    100% { transform: translateY(0px)  rotate(0deg);  opacity: 1; }
+  }
+
   .noise-overlay {
     position: relative;
   }
