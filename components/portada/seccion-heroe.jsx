@@ -2,7 +2,6 @@
 import { useEffect, useState } from "react";
 import { Boton } from "@/components/interfaz/boton";
 import { ArrowRight, Car } from "lucide-react";
-import { BanderinesMundiales } from "@/components/portada/banderines-mundiales";
 const words = ["soñaste", "buscabas", "merecés", "esperabas"];
 
 function SeccionHeroe() {
@@ -26,7 +25,6 @@ function SeccionHeroe() {
     backgroundPosition: '75% 30%',
   }}
 />
-      <BanderinesMundiales />
 
       <div className="relative z-10 w-full max-w-[1400px] mx-auto px-6 lg:px-12 py-28 lg:py-0 lg:min-h-screen flex items-center">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-0 items-center">
