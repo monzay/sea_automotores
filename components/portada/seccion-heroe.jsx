@@ -20,7 +20,7 @@ function SeccionHeroe() {
       <div
   className="absolute inset-0 bg-cover bg-no-repeat"
   style={{
-    backgroundImage: 'url(/images/hero.png)',
+    backgroundImage: 'url(/images/hero_pachamama.png)',
     backgroundSize: 'cover',
     backgroundPosition: '75% 30%',
   }}

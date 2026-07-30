@@ -39,6 +39,17 @@
   --sidebar-ring: oklch(0.708 0 0);
   --brand: oklch(0.52 0.21 27);
   --brand-light: oklch(0.62 0.18 27);
+  /* Pachamama: tonos tierra derivados del rojo de marca (hue 27) para que
+     convivan con la paleta en lugar de competir con ella. */
+  --pacha-terracota: oklch(0.47 0.13 42);
+  --pacha-ocre: oklch(0.72 0.12 78);
+  --pacha-tierra: oklch(0.34 0.06 52);
+  --pacha-arena: oklch(0.95 0.02 85);
+  /* Verdes de la hoja de coca: desaturados a propósito, para que no compitan
+     con el rojo de marca. La tercera es hoja seca, que ancla con los tierra. */
+  --pacha-coca: oklch(0.44 0.09 149);
+  --pacha-coca-clara: oklch(0.57 0.10 142);
+  --pacha-coca-seca: oklch(0.55 0.09 104);
 }
 
 @theme inline {
@@ -71,6 +82,10 @@
   --color-chart-5: var(--chart-5);
   --color-brand: var(--brand);
   --color-brand-light: var(--brand-light);
+  --color-pacha-terracota: var(--pacha-terracota);
+  --color-pacha-ocre: var(--pacha-ocre);
+  --color-pacha-tierra: var(--pacha-tierra);
+  --color-pacha-arena: var(--pacha-arena);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -183,6 +198,38 @@
     100% {
       opacity: 1;
       transform: translateY(0%);
+    }
+  }
+
+  /* Hojas de coca: la ofrenda que cae al entrar */
+  .pacha-hoja {
+    position: absolute;
+    top: 0;
+    perspective: 600px;
+    opacity: 0;
+    will-change: transform, opacity;
+  }
+
+  @keyframes pacha-caida {
+    0%   { opacity: 0; transform: translate3d(0, -14vh, 0) rotate(var(--giro-ini, 0deg)); }
+    7%   { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0; transform: translate3d(var(--deriva-x, 0px), 112vh, 0) rotate(var(--giro-fin, 180deg)); }
+  }
+
+  /* El revoloteo es aparte de la caída: girar sobre su propio eje mientras
+     desciende es lo que evita que parezca un sprite bajando en línea recta. */
+  @keyframes pacha-revoloteo {
+    0%, 100% { transform: rotateY(0deg)   translateX(0);     }
+    25%      { transform: rotateY(150deg) translateX(13px);  }
+    50%      { transform: rotateY(360deg) translateX(0);     }
+    75%      { transform: rotateY(230deg) translateX(-13px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pacha-hoja {
+      animation: none !important;
+      opacity: 0 !important;
     }
   }
 
